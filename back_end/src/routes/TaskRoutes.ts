@@ -1,17 +1,30 @@
 import { app } from "$/app";
-import { validateData } from "$/middleware/validationMiddleware";
+import { validateData, verifyIdTask } from "$/middleware/validationMiddleware";
 import express, { type Application, type Request, type Response } from "express";
 import * as todoService from "$/service/todoService";
 import { Task, TaskSchema } from "$/schemas/TaskSchema";
+import { StatusCodes } from "http-status-codes";
 
 export const taskRoute = express.Router();
 
-taskRoute.get("/", (_req: Request, res: Response) => {
-  res.send("Test");
-  console.log(todoService.getTask());
+taskRoute.get("/", (req: Request, res: Response) => {
+  res.status(StatusCodes.OK).json(todoService.getTask());
 });
 
-taskRoute.post("/", (req: Request, res: Response) => {
+taskRoute.post("/", validateData(TaskSchema), (req: Request, res: Response) => {
   const NewTask: Task = req.body;
-  console.log(NewTask);
+  todoService.addTask(NewTask);
+  res.status(StatusCodes.CREATED).json(NewTask);
+});
+
+taskRoute.delete("/:id", verifyIdTask(todoService.TodoList), (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  todoService.deleteTask(id);
+  res.status(StatusCodes.OK).json({ message: `Task ${id} deleted.` });
+});
+
+taskRoute.patch("/:id", verifyIdTask(todoService.TodoList), (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  todoService.updateStatusTask(id);
+  res.status(StatusCodes.OK).json({ message: `Task ${id} updated.` });
 });

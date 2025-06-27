@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-enum Status {
+export enum Status {
   pending = 0,
   done = 1,
 }

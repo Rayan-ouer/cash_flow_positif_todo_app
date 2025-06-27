@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
-import { TaskSchema } from "$/schemas/TaskSchema";
+import { Task, TaskSchema } from "$/schemas/TaskSchema";
 import { StatusCodes } from "http-status-codes";
+import { TodoList } from "$/service/todoService";
 
 export function validateData(schema: z.ZodTypeAny) {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -18,5 +19,17 @@ export function validateData(schema: z.ZodTypeAny) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Internal Server Error" });
       }
     }
+  };
+}
+
+export function verifyIdTask(TodoList: Task[]) {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    const id = Number(req.params.id);
+    const found = TodoList.some((task) => task.id === id);
+    if (!found) {
+      res.status(StatusCodes.NOT_FOUND).json({ error: "Task does not exist" });
+      return;
+    }
+    next();
   };
 }
