@@ -1,0 +1,44 @@
+@font-face{
+    font-family: Montserrat;
+    src: url("../src/assets/fonts/Montserrat/static/Montserrat-Regular.ttf")
+}
+@import "tailwindcss";
+
+@theme{
+    --font-montserrat: Montserrat, "sans-serif"
+}
+
+:root {
+  --background: 245, 245, 245;
+  --foreground: 33, 33, 33;
+  --border: 212, 212, 212;
+  --accent: 59, 130, 246;           /* blue-600 */
+  --accent-hover: 37, 99, 235;      /* blue-700 */
+  --danger: 220, 38, 38;            /* red-600 */
+  --danger-hover: 185, 28, 28;      /* red-700 */
+  --muted: 107, 114, 128;           /* gray-500 */
+}
+
+.light {
+  --background: 245, 245, 245;      /* bg-gray-50 */
+  --foreground: 17, 24, 39;         /* text-gray-900 */
+  --border: 212, 212, 212;          /* border-gray-300 */
+  --accent: 59, 130, 246;           /* blue-600 */
+  --accent-hover: 37, 99, 235;      /* blue-700 */
+  --danger: 220, 38, 38;            /* red-600 */
+  --danger-hover: 185, 28, 28;      /* red-700 */
+  --muted: 107, 114, 128;           /* gray-500 */
+  --card: 255, 255, 255;
+}
+
+.dark {
+  --background: 31, 41, 55;         /* bg-gray-800 */
+  --foreground: 243, 244, 246;      /* text-gray-200 */
+  --border: 55, 65, 81;             /* border-gray-700 */
+  --accent: 59, 130, 246;           /* blue-600 */
+  --accent-hover: 37, 99, 235;      /* blue-700 */
+  --danger: 220, 38, 38;            /* red-600 */
+  --danger-hover: 185, 28, 28;      /* red-700 */
+  --muted: 156, 163, 175;           /* gray-400 */
+  --card: 55, 65, 81;               /* darker gray */
+}
